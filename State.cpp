@@ -5,7 +5,7 @@
 #include <cstdint>
 #include "State.h"
 
-State State::addRoundKey(Key k) {
+State State::addRoundKey(RoundKey k) {
     State finalSt(data.size());
     for(int i = 0; i < data.size(); i++){
         finalSt[i] = data[i] ^ k.getSt()[i];
@@ -13,11 +13,11 @@ State State::addRoundKey(Key k) {
     return finalSt;
 }
 
-State State::subNibbles(State st) {
+State State::subNibbles() {
     State finalSt(this->data.size());
     auto nibbleCount = 2 * this->data.size();
     for (int i = 0; i < nibbleCount; i++){
-        finalSt.setNibble(i,sbox[st.getNibble(i)]);
+        finalSt.setNibble(i,sbox[this->getNibble(i)]);
     }
     return finalSt;
 }
@@ -32,7 +32,7 @@ State State::rotateNibbles() {
     return finalSt;
 }
 
-State State::mixColumn() {
+State State::mixNibble() {
     std::vector<int8_t> b(data.size());
     uint8_t i = 0;
     for (auto a : data) {
@@ -55,3 +55,10 @@ State State::mixColumn() {
 }
 
 State::State(int size) : Data(size) {}
+
+State::State(const std::vector<int8_t> &data) : Data(data) {}
+
+const State &State::operator=(const std::vector<int8_t> &that) {
+    this->data = that;
+    return *this;
+}

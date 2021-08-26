@@ -7,17 +7,18 @@
 
 
 #include "Data.h"
-#include "Key.h"
+#include "RoundKey.h"
 
 class State: public Data {
-private:
-    const uint8_t sbox[16]={0x7,0x4,0xA,0x9,0x1,0xF,0xB,0x0,0xC,0x3,0x2,0x6,0x8,0xE,0xD,0x5};
 public:
-    State addRoundKey(Key k);
-    State subNibbles(State s);
+    State addRoundKey(RoundKey k);
+    State subNibbles();
     State rotateNibbles();
-    State mixColumn();
+    State mixNibble();
     State(int size);
+
+    State(const std::vector<int8_t> &data);
+    const State &operator=(const std::vector<int8_t> &that);
 };
 
 

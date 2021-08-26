@@ -3,4 +3,4 @@ project(CPPKlein)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(CPPKlein main.cpp Data.cpp Data.h State.cpp State.h Key.cpp Key.h)
+add_executable(CPPKlein main.cpp Data.cpp Data.h State.cpp State.h RoundKey.cpp RoundKey.h Klein.cpp Klein.h)

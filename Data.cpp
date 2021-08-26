@@ -20,6 +20,11 @@ int8_t &Data::operator[](unsigned int i) {
     return data[i];
 }
 
+const Data &Data::operator=(std::vector<int8_t> &that) {
+    this->data = that;
+    return *this;
+}
+
 int8_t Data::getNibble(uint8_t i) {
     uint8_t byteNo = i / 2;
     uint8_t nibbleNo = i % 2;
@@ -44,4 +49,7 @@ void Data::setNibble(uint8_t i, int8_t input) {
         byteData & 0xf0;
         byteData |= input;
     }
+}
+
+Data::Data(const std::vector<int8_t> &data) : data(data) {
 }
