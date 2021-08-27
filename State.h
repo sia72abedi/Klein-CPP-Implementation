@@ -17,8 +17,8 @@ public:
     State mixNibble();
     State(int size);
 
-    State(const std::vector<int8_t> &data);
-    const State &operator=(const std::vector<int8_t> &that);
+    State(const std::vector<uint8_t> &data);
+    const State &operator=(const std::vector<uint8_t> &that);
 };
 
 

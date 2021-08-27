@@ -33,32 +33,32 @@ State State::rotateNibbles() {
 }
 
 State State::mixNibble() {
-    std::vector<int8_t> b(data.size());
+    std::vector<uint8_t> b(data.size());
     uint8_t i = 0;
     for (auto a : data) {
-        auto h = a >> 7;
+        auto h = a >> 7 == 1 ? 255:0;
         b[i] = a << 1;
         b[i] ^= 0x1B & h;
         i++;
     }
 
     State finalState(data.size());
-    finalState[0] = b[3] ^ data[2] ^ data[1] ^ b[0] ^ data[0];
-    finalState[1] = b[2] ^ data[1] ^ data[0] ^ b[3] ^ data[3];
-    finalState[2] = b[1] ^ data[0] ^ data[3] ^ b[2] ^ data[2];
-    finalState[3] = b[0] ^ data[3] ^ data[2] ^ b[1] ^ data[1];
-    finalState[4] = b[7] ^ data[6] ^ data[5] ^ b[4] ^ data[4];
-    finalState[5] = b[6] ^ data[5] ^ data[4] ^ b[7] ^ data[7];
-    finalState[6] = b[5] ^ data[4] ^ data[7] ^ b[6] ^ data[6];
-    finalState[7] = b[4] ^ data[7] ^ data[6] ^ b[5] ^ data[5];
+    finalState[0] = b[0] ^ data[3] ^ data[2] ^ b[1] ^ data[1];
+    finalState[1] = b[1] ^ data[0] ^ data[3] ^ b[2] ^ data[2];
+    finalState[2] = b[2] ^ data[1] ^ data[0] ^ b[3] ^ data[3];
+    finalState[3] = b[3] ^ data[2] ^ data[1] ^ b[0] ^ data[0];
+    finalState[4] = b[4] ^ data[7] ^ data[6] ^ b[5] ^ data[5];
+    finalState[5] = b[5] ^ data[4] ^ data[7] ^ b[6] ^ data[6];
+    finalState[6] = b[6] ^ data[5] ^ data[4] ^ b[7] ^ data[7];
+    finalState[7] = b[7] ^ data[6] ^ data[5] ^ b[4] ^ data[4];
     return finalState;
 }
 
 State::State(int size) : Data(size) {}
 
-State::State(const std::vector<int8_t> &data) : Data(data) {}
+State::State(const std::vector<uint8_t> &data) : Data(data) {}
 
-const State &State::operator=(const std::vector<int8_t> &that) {
+const State &State::operator=(const std::vector<uint8_t> &that) {
     this->data = that;
     return *this;
 }

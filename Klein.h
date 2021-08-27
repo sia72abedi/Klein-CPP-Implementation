@@ -23,8 +23,8 @@ class Klein {
     uint8_t rounds;
 
 public:
-    Klein(KleinType type, const std::vector<int8_t> &key);
-    const std::vector<int8_t> & encrypt(const std::vector<int8_t> &plainText);
+    Klein(KleinType type, const std::vector<uint8_t> &key);
+    const std::vector<uint8_t> & encrypt(const std::vector<uint8_t> &plainText);
 };
 
 
